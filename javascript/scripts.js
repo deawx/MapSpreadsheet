@@ -3,9 +3,6 @@ function startRead(evt) {
   if(file){
     getAsText(file);
     }
-
-    evt.stopPropagation();
-    evt.preventDefault();
 }
 
 function getAsText(readFile) {
@@ -15,21 +12,8 @@ function getAsText(readFile) {
   reader.readAsText(readFile, "UTF-8");
   
   // Handle progress, success, and errors
-  reader.onprogress = updateProgress;
   reader.onload = loaded;
   reader.onerror = errorHandler;
-}
-
-function updateProgress(evt) {
-  if (evt.lengthComputable) {
-    // evt.loaded and evt.total are ProgressEvent properties
-    var loaded = (evt.loaded / evt.total);
-    
-    if (loaded < 1) {
-      // Increase the prog bar length
-      // style.width = (loaded * 200) + "px";
-    }
-  }
 }
 
 function addToMap(fileString) {
@@ -45,7 +29,6 @@ function addToMap(fileString) {
 function loaded(evt) {  
   // Obtain the read file data    
   var fileString = evt.target.result;
-  $("#op").text(fileString); //populate a div with text
 
   //Clear map of markers; drawings
   setMapOnAll(null)
