@@ -9,20 +9,20 @@ function initialize() {
 	markersArray = [];
 }
 
-function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon) {
+function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad) {
   var myLatlng = new google.maps.LatLng(srcLat, srcLon);
-  var marker = new google.maps.Marker({
+  var markerObj = new google.maps.Marker({
     position: myLatlng, 
     map: map, 
     title: title,
     icon: markerIcon
   });
-  markersArray.push(marker);
+  markersArray.push({marker:markerObj,record:dataLoad});
   var infowindow = new google.maps.InfoWindow({
     content: popUpContent
   });
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.open(map,marker);
+  google.maps.event.addListener(markerObj, 'click', function() {
+    infowindow.open(map,markerObj);
   });
   google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
@@ -63,27 +63,22 @@ function deleteShape() {
 }
 
 function getPointsFromPoly() {
-	var outPoints = []
+	var outData = []
 	var polygon = new google.maps.Polygon({
     paths: shape.getPaths(),
   });
   for (var i = 0; i < markersArray.length; i++) {
-  	if(google.maps.geometry.poly.containsLocation(markersArray[i].getPosition(), polygon) == true){
-		  outPoints.push(markersArray[i]);
+  	if(google.maps.geometry.poly.containsLocation(markersArray[i].marker.getPosition(), polygon) == true){
+		  outData.push(markersArray[i].record);
 		}
   }
-  return outPoints;
-}
-
-function exportPoints() {
-	var outPoints = getPointsFromPoly()
-
+  return outData;
 }
 
 function setMapOnAll(map) {
 	// Clears all markers on map when set to null.
   for (var i = 0; i < markersArray.length; i++) {
-    markersArray[i].setMap(map);
+    markersArray[i].marker.setMap(map);
   }
 }
 
