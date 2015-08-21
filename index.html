@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry"></script>
+    <script type="text/javascript" src="javascript/gmaps.js"></script>
+    <script type="text/javascript" src="javascript/scripts.js"></script>
+    <meta charset=utf-8 />
+    <title>Mapped Spreadsheet</title>
+  </head>
+  <body>
+    <div id="header">
+      <div id="title">Generic Title for Map</div>
+      <button type="button" id="deleteShape" onclick="deleteShape()">Delete shape</button>
+      <button type="button" id="export" onclick="exportPoints()">Export records</button>
+      <input type=file id='file' onchange="startRead()"/>
+    </div>
+    <div id="map"></div>
+  </body>
+</html>
