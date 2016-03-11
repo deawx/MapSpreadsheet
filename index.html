@@ -34,10 +34,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div class="nav navbar-nav navbar-left">
-            <p class="navbar-text" id="filename"></p>
-            <span class="btn btn-default btn-file btn-primary">
+            <div class="btn btn-default btn-file btn-primary">
               Upload .csv<input type="file" id="file" onchange="startRead()">
-            </span>
+            </div>
+            <p class="navbar-text" id="filename"></p>
           </div>
           <ul class="nav navbar-nav navbar-right">
             <button type="submit" class="btn btn-default" id="export" onclick="exportPoints()" disabled="true">Export Records</button>
