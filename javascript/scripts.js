@@ -2,7 +2,8 @@ function startRead(evt) {
   var file = document.getElementById('file').files[0];
   if(file){
     getAsText(file);
-    }
+    $('#filename').html(file.name);
+  }
 }
 
 function getAsText(readFile) {
