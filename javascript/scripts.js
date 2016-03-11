@@ -3,6 +3,8 @@ function startRead(evt) {
   if(file){
     getAsText(file);
     $('#filename').html(file.name);
+    $('#export').prop('disabled', false);
+    $('#deleteShape').prop('disabled', false);
   }
 }
 
