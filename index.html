@@ -42,11 +42,27 @@
           <ul class="nav navbar-nav navbar-right">
             <button type="submit" class="btn btn-default" id="export" onclick="exportPoints()" disabled="true">Export Records</button>
             <button type="submit" class="btn btn-default" id="deleteShape" onclick="deleteShape()" disabled="true">Delete Shape</button>
-            <li><a href="#">About</a></li>
+            <li><a data-target="#myModal" data-toggle="modal">About</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Spatial Spreadsheet</h4>
+          </div>
+          <div class="modal-body">
+            <p>Use the upload button to plot a .csv file on the map.  The file must have a header that includes both latitude and longitude to plot correctly.  After the data has plotted, use the drawing tools that appear at the top-center of the map to draw a polygon around the records you would like to export.  Clicking the export button will auto-download the data if you're using Chrome; experiences with other browsers may vary.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="map"></div>
   </body>
 </html>
