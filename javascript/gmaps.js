@@ -9,7 +9,7 @@ function initialize() {
 	markersArray = [];
 }
 
-function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad) {
+function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad, infowindowObj) {
   var myLatlng = new google.maps.LatLng(srcLat, srcLon);
   var markerObj = new google.maps.Marker({
     position: myLatlng, 
@@ -22,10 +22,11 @@ function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad) {
     content: popUpContent
   });
   google.maps.event.addListener(markerObj, 'click', function() {
-    infowindow.open(map,markerObj);
+    infowindowObj.setContent(popUpContent);
+    infowindowObj.open(map,markerObj);
   });
   google.maps.event.addListener(map, 'click', function() {
-    infowindow.close();
+    infowindowObj.close();
   });
 }
 
