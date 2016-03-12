@@ -66,7 +66,15 @@ function loaded(evt) {
 
 function exportPoints() {
   var outData = getPointsFromPoly();
-  var csvContent = outData.join("\n");
+  var header = Object.keys(outData[0]);
+  var csvContent = header.toString() + '\n';
+
+  for (var i = 0; i < outData.length; i++) {
+    header.forEach(function(heading){
+      csvContent += '"' + outData[i][heading] + '",';
+    });
+    csvContent = csvContent.substring(0, csvContent.length -1) + '\n';
+  }
 
   var a = document.createElement('a');
   encodedUri = encodeURI('data:attachment/csv,' + csvContent);
