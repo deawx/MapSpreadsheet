@@ -9,6 +9,10 @@ function initialize() {
 	markersArray = [];
 }
 
+function resetCenter(){
+  map.setCenter(new google.maps.LatLng(39.7351931,-96.1178437));
+}
+
 function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad, infowindowObj) {
   var myLatlng = new google.maps.LatLng(srcLat, srcLon);
   var markerObj = new google.maps.Marker({
