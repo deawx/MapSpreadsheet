@@ -19,14 +19,35 @@ function getAsText(readFile) {
   reader.onerror = errorHandler;
 }
 
-function addToMap(fileString) {
-  // Read fileString, split array of lines
-  lines = fileString.split('\n');
-  for (var i = 0; i < lines.length; i++){
-    line = lines[i].split(',');
-    html = "<h4>"+line[2]+"</h4>Lat: "+line[0]+"<br>Lon: "+line[1]
-    plotPoint(parseFloat(line[0]),parseFloat(line[1]),line[2],html,'',lines[i]);
+function addToMap(CSVstring) {
+  // Read fileString, convert to file object, add to map
+  var data = Papa.parse(CSVstring);
+  if (data.errors.length > 0){
+    console.log('There were some errors parsing the CSV.');
+    console.log(data.errors);
   }
+  var header = data.data[0];
+  data.data.forEach(function(row, index){
+    if (index>0 && row.length>2){
+      var rowObj = {};
+      header.forEach(function(heading, index){
+        rowObj[heading] = row[index];
+      });
+      try {
+        var html = document.createElement("table");
+        for (var i = 0; i < header.length; i++) {
+          var tr = html.insertRow();
+          tr.insertCell().innerHTML = header[i];
+          tr.insertCell().innerHTML = rowObj[header[i]];
+        }
+        plotPoint(parseFloat(rowObj.Latitude),parseFloat(rowObj.Longitude),rowObj[header[0]],html,'',rowObj);
+      }
+      catch(err) {
+        console.log(err);
+        console.log('Failed on latitude '+rowObj.Latitude + ' longitude ' + rowObj.Longitude);
+      }
+    }
+  });
 }
 
 function loaded(evt) {  
@@ -62,3 +83,4 @@ function errorHandler(evt) {
     alert('Error reading file.');
   }
 }
+
