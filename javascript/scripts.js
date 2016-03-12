@@ -1,10 +1,12 @@
 function startRead(evt) {
   var file = document.getElementById('file').files[0];
-  if(file){
+  if(file && file.name.substring(file.name.length-4,file.name.length) === '.csv'){
     getAsText(file);
     $('#filename').html(file.name);
     $('#export').prop('disabled', false);
     $('#deleteShape').prop('disabled', false);
+  } else {
+    alert('You can only plot .csv files.');
   }
 }
 
