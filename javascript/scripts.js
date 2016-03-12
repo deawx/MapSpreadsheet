@@ -26,6 +26,7 @@ function addToMap(CSVstring) {
     console.log('There were some errors parsing the CSV.');
     console.log(data.errors);
   }
+  var infoWindow = new google.maps.InfoWindow();
   var header = data.data[0];
   data.data.forEach(function(row, index){
     if (index>0 && row.length>2){
@@ -40,7 +41,7 @@ function addToMap(CSVstring) {
           tr.insertCell().innerHTML = header[i];
           tr.insertCell().innerHTML = rowObj[header[i]];
         }
-        plotPoint(parseFloat(rowObj.Latitude),parseFloat(rowObj.Longitude),rowObj[header[0]],html,'',rowObj);
+        plotPoint(parseFloat(rowObj.Latitude),parseFloat(rowObj.Longitude),rowObj[header[0]],html,'',rowObj, infoWindow);
       }
       catch(err) {
         console.log(err);
