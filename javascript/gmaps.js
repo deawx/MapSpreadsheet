@@ -1,12 +1,16 @@
 function initialize() {
   var mapCanvas = document.getElementById('map');
   var mapOptions = {
-  	center: new google.maps.LatLng(39.5536802,-79.9403624),
-  	zoom: 8,
+  	center: new google.maps.LatLng(39.7351931,-96.1178437),
+  	zoom: 4,
   	mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(mapCanvas, mapOptions);
 	markersArray = [];
+}
+
+function resetCenter(){
+  map.setCenter(new google.maps.LatLng(39.7351931,-96.1178437));
 }
 
 function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad, infowindowObj) {
