@@ -44,7 +44,7 @@ function addToMap(CSVstring) {
       }
       catch(err) {
         console.log(err);
-        console.log('Failed on latitude '+rowObj.Latitude + ' longitude ' + rowObj.Longitude);
+        console.log('Failed on latitude ' + rowObj.Latitude + ' longitude ' + rowObj.Longitude);
       }
     }
   });
@@ -55,13 +55,13 @@ function loaded(evt) {
   var fileString = evt.target.result;
 
   //Clear map of markers; drawings
-  setMapOnAll(null)
+  setMapOnAll(null);
 
   // Add points to google map
   addToMap(fileString);
 
   //Start the drawing tool for point selection
-  drawPolygon()
+  drawPolygon();
 }
 
 function exportPoints() {

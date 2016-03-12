@@ -1,9 +1,9 @@
 function initialize() {
   var mapCanvas = document.getElementById('map');
   var mapOptions = {
-	center: new google.maps.LatLng(39.5536802,-79.9403624),
-	zoom: 8,
-	mapTypeId: google.maps.MapTypeId.ROADMAP
+  	center: new google.maps.LatLng(39.5536802,-79.9403624),
+  	zoom: 8,
+  	mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(mapCanvas, mapOptions);
 	markersArray = [];
@@ -48,7 +48,7 @@ function drawPolygon() {
   drawingManager.setMap(map);
   ["polygoncomplete"].forEach(function(evt){
   	google.maps.event.addListener(drawingManager, evt, function(geometry) {
-  		shape = geometry
+  		shape = geometry;
 		  drawingManager.setOptions({
 		  	drawingMode: null,
 		    drawingControl: false
@@ -63,7 +63,7 @@ function deleteShape() {
 }
 
 function getPointsFromPoly() {
-	var outData = []
+	var outData = [];
 	var polygon = new google.maps.Polygon({
     paths: shape.getPaths(),
   });
