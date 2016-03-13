@@ -68,24 +68,28 @@ function loaded(evt) {
 }
 
 function exportPoints() {
-  var outData = getPointsFromPoly();
-  var header = Object.keys(outData[0]);
-  var csvContent = header.toString() + '\n';
+  if (typeof(shape) === "undefined"){
+    alert('You must draw a polygon using the controls in the top center of the map first.');
+  } else {
+    var outData = getPointsFromPoly();
+    var header = Object.keys(outData[0]);
+    var csvContent = header.toString() + '\n';
 
-  for (var i = 0; i < outData.length; i++) {
-    header.forEach(function(heading){
-      csvContent += '"' + outData[i][heading] + '",';
-    });
-    csvContent = csvContent.substring(0, csvContent.length -1) + '\n';
+    for (var i = 0; i < outData.length; i++) {
+      header.forEach(function(heading){
+        csvContent += '"' + outData[i][heading] + '",';
+      });
+      csvContent = csvContent.substring(0, csvContent.length -1) + '\n';
+    }
+
+    var a = document.createElement('a');
+    encodedUri = encodeURI('data:attachment/csv,' + csvContent);
+    a.href = encodedUri;
+    a.target ='_blank';
+    a.download = 'dataSubset.csv'
+    document.body.appendChild(a);
+    a.click();
   }
-
-  var a = document.createElement('a');
-  encodedUri = encodeURI('data:attachment/csv,' + csvContent);
-  a.href = encodedUri;
-  a.target ='_blank';
-  a.download = 'dataSubset.csv'
-  document.body.appendChild(a);
-  a.click();
 }
 
 function errorHandler(evt) {
