@@ -11,6 +11,7 @@ function initialize() {
 
 function resetCenter(){
   map.setCenter(new google.maps.LatLng(39.7351931,-96.1178437));
+  map.setZoom(4);
 }
 
 function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad, infowindowObj) {
