@@ -7,6 +7,32 @@ function initialize() {
   };
   map = new google.maps.Map(mapCanvas, mapOptions);
 	markersArray = [];
+  startDrawingTools();
+}
+
+function startDrawingTools() {
+  drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: null,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        google.maps.drawing.OverlayType.POLYGON,
+      ]
+    },
+    markerOptions: {icon: ''},
+    polygonOptions: {
+      editable: true,
+      clickable: false
+    }
+  });
+  drawingManager.setMap(map);
+  google.maps.event.addListener(drawingManager, "polygoncomplete", function(geometry) {
+    shape = geometry;
+    displayDrawingManager(false);
+  });
+  //hide the drawing manager until the CSV is loaded
+  displayDrawingManager(false);
 }
 
 function resetCenter(){
@@ -35,37 +61,16 @@ function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon,dataLoad, infowin
   });
 }
 
-function drawPolygon() {
-  var drawingManager = new google.maps.drawing.DrawingManager({
+function displayDrawingManager(show){
+  drawingManager.setOptions({
     drawingMode: null,
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: [
-        google.maps.drawing.OverlayType.POLYGON,
-      ]
-    },
-    markerOptions: {icon: ''},
-    polygonOptions: {
-      editable: true,
-      clickable: false
-    }
-  });
-  drawingManager.setMap(map);
-  ["polygoncomplete"].forEach(function(evt){
-  	google.maps.event.addListener(drawingManager, evt, function(geometry) {
-  		shape = geometry;
-		  drawingManager.setOptions({
-		  	drawingMode: null,
-		    drawingControl: false
-		  });
-    });
+    drawingControl: show
   });
 }
 
 function deleteShape() {
 	shape.setMap(null);
-	drawPolygon();
+	displayDrawingManager(true);
 }
 
 function getPointsFromPoly() {

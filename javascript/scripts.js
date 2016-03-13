@@ -41,8 +41,8 @@ function addToMap(CSVstring) {
     $('#export').prop('disabled', false);
     $('#deleteShape').prop('disabled', false);
     
-    //Start the drawing tool for point selection
-    drawPolygon();
+    //Show the drawing tool for point selection
+    displayDrawingManager(true);
   } else {
     alert('Your CSV must contain "Latitude" and "Longitude" fields (case sensitive).');
     return;
