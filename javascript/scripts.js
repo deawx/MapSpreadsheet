@@ -2,11 +2,17 @@ function startRead(evt) {
   var file = document.getElementById('file').files[0];
   if(file && file.name.substring(file.name.length-4,file.name.length) === '.csv'){
     getAsText(file);
-    $('#filename').html(file.name);
-    $('#export').prop('disabled', false);
-    $('#deleteShape').prop('disabled', false);
+    filename = file.name;
   } else {
     alert('You can only plot .csv files.');
+  }
+}
+
+function validateCSV(header){
+  if (header.indexOf('Latitude') !== -1 || header.indexOf('Longitude') !== -1){
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -30,6 +36,17 @@ function addToMap(CSVstring) {
   }
   var infoWindow = new google.maps.InfoWindow();
   var header = data.data[0];
+  if (validateCSV(header)){
+    $('#filename').html(filename);
+    $('#export').prop('disabled', false);
+    $('#deleteShape').prop('disabled', false);
+    
+    //Start the drawing tool for point selection
+    drawPolygon();
+  } else {
+    alert('Your CSV must contain "Latitude" and "Longitude" fields (case sensitive).');
+    return;
+  }
   data.data.forEach(function(row, index){
     if (index>0 && row.length>2){
       var rowObj = {};
@@ -62,9 +79,6 @@ function loaded(evt) {
 
   // Add points to google map
   addToMap(fileString);
-
-  //Start the drawing tool for point selection
-  drawPolygon();
 }
 
 function exportPoints() {
